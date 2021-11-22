@@ -698,7 +698,7 @@ function use(items) {
 
     if (window.opener) {
       // Popup
-      window.opener.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
+      window.opener.postMessage(url, "*")
     } else {
       // Modal (in iframe)
       parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
@@ -734,7 +734,7 @@ function use(items) {
   } else if (callback && parent[callback]) {
     parent[callback](getSelectedItems());
   } else if (window.opener) { // standalone button or other situations
-    window.opener.SetUrl(getSelectedItems());
+    window.opener.postMessage(getSelectedItems(), "*");
   } else {
     useFileSucceeded = false;
   }
