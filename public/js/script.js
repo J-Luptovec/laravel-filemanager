@@ -776,7 +776,7 @@ function usingFckeditor2() {
 }
 
 function usingWysiwygEditor() {
-  return usingTinymce3() || usingTinymce4AndColorbox() || usingTinymce5() || usingCkeditor3();
+  return usingTinymce3() || usingTinymce4AndColorbox() || usingTinymce5() || usingCkeditor3() || usingFckeditor2();
 }
 
 // ==================================
