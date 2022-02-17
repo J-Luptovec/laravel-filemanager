@@ -112,6 +112,13 @@ class LfmPath
         $files = array_map(function ($file_path) {
             return $this->pretty($file_path);
         }, $this->storage->files());
+        
+        //filter out webp files
+        foreach($files as $key => $file){
+            if(substr($file->name, -5, 5) === '.webp'){
+                unset($files[$key]);
+            }
+        }
 
         return $this->sortByColumn($files);
     }
