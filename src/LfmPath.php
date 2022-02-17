@@ -238,7 +238,7 @@ class LfmPath
             
             //create webp
             if(substr($file->getMimeType(), 0, 5) === 'image'){
-                $new_file_name_webp = strtr($new_file_name, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp']);
+                $new_file_name_webp = strtr($new_file_name, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp', '.jpeg' => '.webp']);
                 $image = Image::make($file);
                 $this->setName($new_file_name_webp)->storage->put($image->encode('webp'));
             }
@@ -340,7 +340,7 @@ class LfmPath
         $this->storage->put($image->stream()->detach(), 'public');
         
         //webo thumbnail
-        $file_name = strtr($file_name, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp']);
+        $file_name = strtr($file_name, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp', '.jpeg' => '.webp']);
         $this->setName($file_name)->thumb(true);
         $this->storage->put($image->encode('webp'), 'public');
     }
