@@ -62,7 +62,7 @@ class DeleteController extends LfmController
                 if ($file_to_delete->isImage()) {
                     $this->lfm->setName($name_to_delete)->thumb()->delete();
                     //delete webp version
-                    $name_to_delete_webp = strtr($name_to_delete, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp']);
+                    $name_to_delete_webp = strtr($name_to_delete, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp', '.jpeg' => '.webp']);
                     $this->lfm->setName($name_to_delete_webp)->thumb()->delete();
                     $this->lfm->setName($name_to_delete_webp)->delete();
                 }
