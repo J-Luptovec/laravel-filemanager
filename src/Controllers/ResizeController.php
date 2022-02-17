@@ -58,6 +58,9 @@ class ResizeController extends LfmController
 
         event(new ImageIsResizing($image_path));
         Image::make($image_path)->resize(request('dataWidth'), request('dataHeight'))->save();
+        //resize webp version of image
+        $webp_image_path = strtr($image_path, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp', '.jpeg' => '.webp']);
+        Image::make($webp_image_path)->resize(request('dataWidth'), request('dataHeight'))->save();
         event(new ImageWasResized($image_path));
 
         return parent::$success_response;
