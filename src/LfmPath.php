@@ -228,7 +228,14 @@ class LfmPath
         event(new ImageIsUploading($new_file_path));
         try {
             $this->setName($new_file_name)->storage->save($file);
-
+            
+            //create webp
+            if(substr($file->getMimeType(), 0, 5) === 'image'){
+                $new_file_name_webp = strtr($new_file_name, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp']);
+                $image = Image::make($file);
+                $this->setName($new_file_name_webp)->storage->put($image->encode('webp'));
+            }
+            
             $this->generateThumbnail($new_file_name);
         } catch (\Exception $e) {
             \Log::info($e);
