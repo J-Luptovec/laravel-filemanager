@@ -320,9 +320,14 @@ class LfmPath
         $this->setName($file_name)->thumb(true);
         $thumbWidth = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbWidth() ? $this->helper->categoryThumbWidth() : config('lfm.thumb_img_width', 200);
         $thumbHeight = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbHeight() ? $this->helper->categoryThumbHeight() : config('lfm.thumb_img_height', 200);
+        //original file type thumbnail
         $image = Image::make($original_image->get())
             ->fit($thumbWidth, $thumbHeight);
-
         $this->storage->put($image->stream()->detach(), 'public');
+        
+        //webo thumbnail
+        $file_name = strtr($file_name, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp']);
+        $this->setName($file_name)->thumb(true);
+        $this->storage->put($image->encode('webp'), 'public');
     }
 }
