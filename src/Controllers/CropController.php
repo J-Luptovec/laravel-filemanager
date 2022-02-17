@@ -45,6 +45,12 @@ class CropController extends LfmController
         Image::make($image_path)
             ->crop(...array_values($crop_info))
             ->save($crop_path);
+        // crop webp version image
+        $webp_image_path = strtr($image_path, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp' , '.jpeg' => '.webp']);
+        $webp_crop_path = strtr($crop_path, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp' , '.jpeg' => '.webp']);
+        Image::make($webp_image_path)
+            ->crop(...array_values($crop_info))
+            ->save($webp_crop_path);
 
         // make new thumbnail
         $this->lfm->generateThumbnail($image_name);
