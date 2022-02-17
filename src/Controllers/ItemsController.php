@@ -82,6 +82,13 @@ class ItemsController extends LfmController
                 } else {
                     event(new FileIsMoving($old_file->path(), $new_file->path()));
                 }
+                //move webp version of image
+                $webp_item = strtr($item, ['.jpg' => '.webp', '.png' => '.webp', '.gif' => '.webp', '.jpeg' => '.webp']);
+                $new_file_webp_thumb = $this->lfm->setName($webp_item)->thumb()->dir($target);
+                $new_file_webp = $this->lfm->setName($webp_item)->dir($target);
+                $this->lfm->setName($webp_item)->thumb()->move($new_file_webp_thumb);
+                $this->lfm->setName($webp_item)->move($new_file_webp);
+                
                 $this->lfm->setName($item)->thumb()->move($new_file);
             }
             $new_file = $this->lfm->setName($item)->dir($target);
