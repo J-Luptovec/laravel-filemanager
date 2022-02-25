@@ -336,7 +336,9 @@ class LfmPath
         $thumbHeight = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbHeight() ? $this->helper->categoryThumbHeight() : config('lfm.thumb_img_height', 200);
         //original file type thumbnail
         $image = Image::make($original_image->get())
-            ->fit($thumbWidth, $thumbHeight);
+            ->fit($thumbWidth, $thumbHeight, function ($constraint) {
+            $constraint->upsize();
+        });
         $this->storage->put($image->stream()->detach(), 'public');
         
         //webo thumbnail
